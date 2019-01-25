@@ -1,0 +1,17 @@
+.model OR2
+.inputs A0 A1
+.outputs OUT
+
+.names A0 A1 OUT
+01 1
+10 1
+11 1
+
+.end
+
+#?# Testing OR
+# 00|0
+# 01|1
+# 10|1
+# 11|1
+#!#
