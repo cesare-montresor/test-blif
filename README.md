@@ -17,7 +17,8 @@ $ test_blif.py [-a|--all]
 
 # Requirments:
 python3
-sudo -H pip3 install prettytable ptable
+
+    sudo -H pip3 install prettytable ptable
 
 # Tests
 
@@ -26,26 +27,26 @@ Multiple test can be added to a single .blif to address multiple scenarios. Each
 
 ## Test format:
 
-#?# [Test_name_or_description]
-# <inputs>|<expected_outputs>
-# <inputs>|<expected_outputs>
-# <inputs>|<expected_outputs>
-#!#
+    #?# [Test_name_or_description]
+    # <inputs>|<expected_outputs>
+    # <inputs>|<expected_outputs>
+    # <inputs>|<expected_outputs>
+    #!#
 
 ## Examples:
 
-#?# Truth table OR
-# 00 | 0
-# 01 | 1
-# 10 | 1
-# 11 | 1
-#!#
+    #?# Truth table OR
+    # 00 | 0
+    # 01 | 1
+    # 10 | 1
+    # 11 | 1
+    #!#
 
-#?# 2 bit counter with overflow INC | C1 C0 COUT
-# 1 | 00 0
-# 1 | 01 0
-# 1 | 10 0
-# 1 | 11 0
-# 1 | 00 1
-#!#
+    #?# 2 bit counter with overflow INC | C1 C0 COUT
+    # 1 | 00 0
+    # 1 | 01 0
+    # 1 | 10 0
+    # 1 | 11 0
+    # 1 | 00 1
+    #!#
 
