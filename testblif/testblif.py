@@ -1,16 +1,21 @@
 #! /usr/bin/python3
 
+__version__ = "0.0.3"
 
 from subprocess import Popen, PIPE
 import sys
 import re
 import prettytable
-from  glob import glob
+from glob import glob
 
 def main():
     verbose = '-v' in sys.argv
     if verbose:
         sys.argv.remove('-v')
+        
+    debug = '--debug' in sys.argv
+    if debug:
+        sys.argv.remove('--debug')
     
     if len(sys.argv)==1 or sys.argv[1] in ['-h','--help']:
         full = '--help' in sys.argv
@@ -236,16 +241,16 @@ def font_yellow(text):
 def print_help(full=False):
         help = """
 Print this help:
-$ test_blif.py -h
+$ testblif.py -h
 
 Print this full help:
-$ test_blif.py --help
+$ testblif.py --help
 
 Run tests of single blif file:
-$ test_blif.py filename.blif
+$ testblif.py filename.blif
 
 Run tests on all .blif in the folder:
-$ test_blif.py [-a|--all]
+$ testblif.py [-a|--all]
 
 """
         print(help)
@@ -307,8 +312,3 @@ class Test(object):
         self.errors = 0
         self.filename = None
         self.warnings_sis = []
-        
-        
-    
-if __name__ == "__main__":
-    main()
