@@ -52,7 +52,9 @@ def read_tests(filename):
             in_test = False
             tests.append(test)
         else:
-            input,output = re.sub('[^01|]','',c).split('|')
+            input,output = c.split('|',maxsplit=1)
+            input = input[1:].strip()
+            output = output.strip()
             test.inputs.append(input)
             test.outputs.append(output)
     return tests
@@ -72,6 +74,7 @@ def run_tests(filename,tests):
     for test in tests:
         results, err = run_sims(filename,test.inputs)
         for res,correct in zip(results,test.outputs):
+            correct = re.sub('[^01]', '', correct)
             test.results.append(res)
             test.validated.append(res == correct)
             test.errors += 0 if res == correct else 1
@@ -152,7 +155,7 @@ def print_test_details(filename, tests, verbose=False):
                 details=True
             
             detail = prettytable.PrettyTable()
-
+            
             detail.add_column("Input", [])
             detail.add_column("Output", [])
             detail.add_column("Expected", [])
@@ -161,8 +164,12 @@ def print_test_details(filename, tests, verbose=False):
             
             detail.title= "{} {}".format((i+1), test.name)
             for inp,res,out,val in zip(test.inputs,test.results,test.outputs,test.validated):
-                equal = [r if o == r else font_red(r) for o, r in zip(out, res)]
-                expected = [o if o == r else font_green(o) for o, r in zip(out, res)]
+                out_format = re.sub('[01]', '{}', out)
+                res_formatted = out_format.format( *list(res) )
+                equal = [r if o not in ['0','1'] or o == r else font_red(r) for o, r in zip(out, res_formatted)]
+                expected = [o if o not in ['0','1'] or o == r else font_green(o) for o, r in zip(out, res_formatted)]
+                
+                
                 equal = ''.join(equal)
                 expected = ''.join(expected)
 
@@ -185,6 +192,7 @@ def print_test_details(filename, tests, verbose=False):
 def run_sims(filename,inputs):
     cmds = ['read_blif '+filename]
     for i in inputs:
+        i = output = re.sub('[^01]','',i)
         cmds.append('sim ' + ' '.join(i))
     cmds.append("quit")
     out, err = run_sis(cmds)
@@ -192,7 +200,7 @@ def run_sims(filename,inputs):
     del (out[0])  # read_blif
     outputs = []
     for o in out:
-        output = o[1].split(':',maxsplit=1)[1]
+        output = o[1].split(':')[1]
         output = re.sub('[^01]','',output)
         outputs.append(output)
     return outputs, err
@@ -238,6 +246,7 @@ $ test_blif.py filename.blif
 
 Run tests on all .blif in the folder:
 $ test_blif.py [-a|--all]
+
 """
         print(help)
         if not full:
