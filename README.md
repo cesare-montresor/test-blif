@@ -16,8 +16,8 @@ Run tests on all .blif in the folder:
 $ test_blif.py [-a|--all]
 
 # Requirments:
-python3
 
+    sudo apt-get install python36
     sudo -H pip3 install prettytable ptable
 
 # Tests
@@ -42,11 +42,54 @@ Multiple test can be added to a single .blif to address multiple scenarios. Each
     # 11 | 1
     #!#
 
-    #?# 2 bit counter with overflow INC | C1 C0 COUT
+    #?# 2 bit counter with overflow INC | OUT OVER
     # 1 | 00 0
     # 1 | 01 0
     # 1 | 10 0
+    # 0 | 10 0
     # 1 | 11 0
     # 1 | 00 1
     #!#
 
+## Full example
+
+    .model MUX4
+    .inputs S A3 A2 A1 A0 B3 B2 B1 B0
+    .outputs OUT3 OUT2 OUT1 OUT0
+
+    .names S A3 B3 OUT3
+    11- 1
+    0-1 1
+
+    .names S A2 B2 OUT2
+    11- 1
+    0-1 1
+
+    .names S A1 B1 OUT1
+    11- 1
+    0-1 1
+
+    .names S A0 B0 OUT0
+    11- 1
+    0-1 1
+
+    .end
+
+
+    #?# MUX4: S A B | OUT
+    # 0 1110 0010 | 0010
+    # 1 1110 1010 | 1110
+    # 0 0101 0110 | 1110
+    # 1 0110 0010 | 0110
+    # 0 1010 0010 | 0010
+    #!#
+
+    #?# MUX4: S A B | OUT
+    # 0 0101 0110 | 1110
+    # 0 0110 0010 | 0010
+    # 0 1010 0010 | 0010
+    # 1 1010 0010 | 1010
+    # 1 1110 1010 | 1110
+    #!#
+    
+    
