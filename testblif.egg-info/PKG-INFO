@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: testblif
+Version: 0.0.5
+Summary: Unit-testing-style for .blif files for Berkeley SIS.
+Home-page: https://github.com/cesare-montresor/test-blif
+Author: Cesare Montresor
+Author-email: cesare.montresor@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN

@@ -1,0 +1,12 @@
+MANIFEST.in
+README.md
+setup.py
+testblif/__init__.py
+testblif/__main__.py
+testblif/testblif.py
+testblif.egg-info/PKG-INFO
+testblif.egg-info/SOURCES.txt
+testblif.egg-info/dependency_links.txt
+testblif.egg-info/entry_points.txt
+testblif.egg-info/requires.txt
+testblif.egg-info/top_level.txt

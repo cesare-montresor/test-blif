@@ -1,6 +1,4 @@
-#! /usr/bin/python3
-
-__version__ = "0.0.3"
+__version__ = "0.0.5"
 
 from subprocess import Popen, PIPE
 import sys
@@ -192,37 +190,57 @@ def print_test_details(filename, tests, verbose=False):
                 detail.add_row( ( color(inp), equal, expected, response ) )
             print(detail,"\n")
 
-    
-    
-def run_sims(filename,inputs):
-    cmds = ['read_blif '+filename]
+
+def run_sims(filename, inputs):
+    cmds = ['read_blif ' + filename]
     for i in inputs:
-        i = output = re.sub('[^01]','',i)
+        i = output = re.sub('[^01]', '', i)
         cmds.append('sim ' + ' '.join(i))
     cmds.append("quit")
     out, err = run_sis(cmds)
     
-    del (out[0])  # read_blif
     outputs = []
     for o in out:
-        output = o[1].split(':')[1]
-        output = re.sub('[^01]','',output)
+        o_line = None
+        for l in o:
+            if l.startswith('Outputs:'):
+                o_line = l
+        # output = o[1].split(':')[1]
+        if o_line is None:
+            print("Warning: coudn't find output line in, something maybe broken, please post the following output along with SIS version on github:\n\n---", out, "---\n")
+            continue
+        output = o_line.split(':')[1]
+        output = re.sub('[^01]', '', output)
         outputs.append(output)
     return outputs, err
+
 
 def run_sis(cmds):
     sis = Popen("sis", stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1, shell=True)
     cmd = '\n'.join(cmds)
     bcmd = (cmd).encode("utf-8")
-
+    
     out, err = sis.communicate(input=bcmd)
     sis.stdin.close()
     sis.terminate()
-
-    out = [ o.strip().split('\n') for o in out.decode('utf-8').strip().split('sis>')]
+    
+    out = [o.strip().split('\n') for o in out.decode('utf-8').strip().split('sis>')]
     err = err.decode('utf-8').strip().split('\n')
-    del (out[:2]) # UC Berkeley ....
-    del (err[0])
+    version = None
+    valid_out = []
+    for i, o in enumerate(out):
+        if len(o) == 1:
+            line = o[0]
+            if line in ['', 'quit'] or line.startswith('read_blif'):
+                pass
+            elif line.startswith('UC Berkeley'):
+                version = re.search('SIS *([0-9.]+) *\(', line).group(1)
+            else:
+                valid_out.append(o)
+        else:
+            valid_out.append(o)
+    out = valid_out
+    
     return out, err
 
 def font_color(text,color):
