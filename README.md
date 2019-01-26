@@ -3,16 +3,16 @@ A tool to simplyfy the circuit testing written for .blif files in SIS
 
 # Usage
 
-Print this help:
+Print this help:  
 $ test_blif.py -h
 
-Print this full help:
+Print this full help:  
 $ test_blif.py --help
 
-Run tests of single blif file:
+Run tests of single blif file:  
 $ test_blif.py filename.blif
 
-Run tests on all .blif in the folder:
+Run tests on all .blif in the folder:  
 $ test_blif.py [-a|--all]
 
 # Requirments:
