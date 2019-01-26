@@ -1,5 +1,5 @@
 dist/
 build/
-*.egg/
+*.egg-info/
 venv*/
-.idea
+.idea*
