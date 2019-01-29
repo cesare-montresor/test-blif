@@ -1,6 +1,12 @@
 # test-blif
 A tool to simplyfy the circuit testing written for .blif files in SIS
 
+# Install:
+
+    sudo -H pip3 install testblif
+
+*currently only python3 is supported*
+
 # Usage
 
 Print this help:  
@@ -15,10 +21,6 @@ $ test_blif.py filename.blif
 Run tests on all .blif in the folder:  
 $ test_blif.py [-a|--all]
 
-# Requirments:
-
-    sudo apt-get install python36
-    sudo -H pip3 install prettytable ptable
 
 # Tests
 
