@@ -1,4 +1,4 @@
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 
 from subprocess import Popen, PIPE
 import sys
@@ -47,19 +47,24 @@ def read_tests(filename):
     in_test=False
     for c in comments:
         if c.startswith('#?#'):
-            name = c[3:].strip()
-            in_test = True
-            test = Test(name)
-            test.filename = filename
+            text = c[3:].strip()
+            if not in_test:
+                in_test = True
+                test = Test(text)
+                test.filename = filename
+            else:
+                test.name += "\n"+text
         elif c.startswith('#!#'):
             in_test = False
             tests.append(test)
-        else:
-            input,output = c.split('|',maxsplit=1)
-            input = input[1:].strip()
-            output = output.strip()
-            test.inputs.append(input)
-            test.outputs.append(output)
+        elif in_test:
+            parts = c.lstrip('# ').split('|')
+            if len(parts)>1:
+                input,output = parts[0],parts[1]
+                input = input.strip()
+                output = output.strip()
+                test.inputs.append(input)
+                test.outputs.append(output)
     return tests
 
 def read_comments(filename):
