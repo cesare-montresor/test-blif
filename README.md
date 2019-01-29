@@ -27,7 +27,7 @@ $ test_blif.py [-a|--all]
 In order to add test to you blif file you can add comments in the following format directly in the file you want to test, suggested after the last ".end"
 Multiple test can be added to a single .blif to address multiple scenarios. Each test runs independently from the others in new instance of SIS.
 
-## Test format:
+## Test format
 
     #?# [Test_name_or_description]
     # <inputs>|<expected_outputs>
@@ -35,7 +35,7 @@ Multiple test can be added to a single .blif to address multiple scenarios. Each
     # <inputs>|<expected_outputs>
     #!#
 
-## Examples:
+## Test examples
 
     #?# Truth table OR
     # 00 | 0
@@ -53,7 +53,7 @@ Multiple test can be added to a single .blif to address multiple scenarios. Each
     # 1 | 00 1
     #!#
 
-## Full example
+## File example
 
     .model MUX4
     .inputs S A3 A2 A1 A0 B3 B2 B1 B0
