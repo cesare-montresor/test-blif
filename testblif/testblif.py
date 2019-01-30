@@ -1,10 +1,23 @@
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 
 from subprocess import Popen, PIPE
 import sys
 import re
 import prettytable
 from glob import glob
+
+
+class Test(object):
+    def __init__(self,name=""):
+        self.name = name
+        self.inputs = []
+        self.outputs = []
+        self.results = []
+        self.validated = []
+        self.passed = True
+        self.errors = 0
+        self.filename = None
+        self.warnings_sis = []
 
 def main():
     verbose = '-v' in sys.argv
@@ -316,22 +329,7 @@ sudo -H pip3 install prettytable ptable
 
 ---
 Software is provided AS IS, report issues at:
-cesare.montresor@gmail.com
+https://github.com/cesare-montresor/test-blif/issues
 
 """
         print(full_help)
-
-
-
-
-class Test(object):
-    def __init__(self,name=""):
-        self.name = name
-        self.inputs = []
-        self.outputs = []
-        self.results = []
-        self.validated = []
-        self.passed = True
-        self.errors = 0
-        self.filename = None
-        self.warnings_sis = []
