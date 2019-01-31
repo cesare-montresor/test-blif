@@ -95,12 +95,18 @@ def run_tests(filename,tests):
     for test in tests:
         results, err = run_sims(filename,test.inputs)
         for res,correct in zip(results,test.outputs):
-            correct = re.sub('[^01]', '', correct)
-            test.results.append(res)
-            test.validated.append(res == correct)
-            test.errors += 0 if res == correct else 1
+            result=[]
+            valid=True
+            correct=re.sub('[^01-]', '', correct)
+            for r,c in zip(res,correct):
+                result.append(res)
+                if(valid==True and (r == c or c=="-")==False):
+                    valid=False     
+            test.results.append(result)
+            test.validated.append(valid)
+            test.errors += 0 if valid else 1
             test.warnings_sis = err
-            if (res != correct):
+            if not valid:
                 test.passed = False
     return tests
 
@@ -185,7 +191,7 @@ def print_test_details(filename, tests, verbose=False):
             
             detail.title= "{} {}".format((i+1), test.name)
             for inp,res,out,val in zip(test.inputs,test.results,test.outputs,test.validated):
-                out_format = re.sub('[01]', '{}', out)
+                out_format = re.sub('[01-]', '{}', out)
                 res_formatted = out_format.format( *list(res) )
                 equal = [r if o not in ['0','1'] or o == r else font_red(r) for o, r in zip(out, res_formatted)]
                 expected = [o if o not in ['0','1'] or o == r else font_green(o) for o, r in zip(out, res_formatted)]
