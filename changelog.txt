@@ -1,0 +1,10 @@
+0.0.9
+- Add support for "-" in the expected output as wildcard (aka "don't care")
+
+
+
+0.0.8
+- Bugfix comments (ignore regular comments)
+- Added multiline headers #?# (TODO: fix ascii visualization)
+- Added added per line comment <in> | <out> [ | <comment>]
+
