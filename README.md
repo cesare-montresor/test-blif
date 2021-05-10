@@ -1,12 +1,14 @@
-# test-blif
-A tool designed to automate the testing of sequential circuits written for .blif files for [SIS](https://ptolemy.berkeley.edu/projects/embedded/pubs/downloads/sis/index.htm).
-A legacy tool developed by Berkeley and still used by UniVR, Università di Verona, for the course of the IT department "Architettura degli Elaboratori" held by Prof. Franco Fummi.
-
 # Known Issue!!! <-- IMPORTANT
 
 test_blif.py is intended to test **the LOGIC** and **NOT the SYNTAXT** of your project, so it assumes your project being "syntactically correct". 
 Therefore make sure that SIS successfully parse and load your script before running test_blif.py
 **In case of SIS gives errors at loading time, test_blif.py will gracefully fail giving you the feeling of "green lights", but the project actually doesn't even "compile"!!!**
+
+
+# test-blif
+A tool designed to automate the testing of sequential circuits written for .blif files for [SIS](https://ptolemy.berkeley.edu/projects/embedded/pubs/downloads/sis/index.htm).
+A legacy tool developed by Berkeley and still used by UniVR, Università di Verona, for the course of the IT department "Architettura degli Elaboratori" held by Prof. Franco Fummi.
+
 
 # Install:
 
