@@ -96,7 +96,7 @@ Multiple test can be added to a single .blif to address multiple scenarios. Each
     #!#
 
     #?# MUX4: S A B | OUT
-    # 0 0101 0110 | 1110
+    # 0 0101 0110 | 0110
     # 0 0110 0010 | 0010
     # 0 1010 0010 | 0010
     # 1 1010 0010 | 1010
